@@ -83,3 +83,4 @@ docs/dev
 # CMake generated files
 *.gen.cmake
 build/
+Makefile.config

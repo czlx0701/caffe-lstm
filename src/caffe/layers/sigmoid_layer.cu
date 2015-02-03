@@ -64,20 +64,22 @@ void SigmoidLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
   }
 }
 
-template <typename Dtype> 
-void SigmoidLayer<Dtype>::Forward_gpu(int N, 
+template <typename Dtype>
+void SigmoidLayer<Dtype>::Forward_gpu(int N,
     const Dtype* bottom, Dtype* top) {
+  // NOLINT_NEXT_LINE(whitespace/operators)
   SigmoidForward<Dtype><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
       N, bottom, top);
   CUDA_POST_KERNEL_CHECK;
 }
 
-template <typename Dtype> 
-void SigmoidLayer<Dtype>::Backward_gpu(int N, 
+template <typename Dtype>
+void SigmoidLayer<Dtype>::Backward_gpu(int N,
     const Dtype* top_data, const Dtype* top_diff, Dtype* bottom_diff) {
-   SigmoidBackward<Dtype><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
-      N, top_diff, top_data, bottom_diff);
-   CUDA_POST_KERNEL_CHECK;
+  // NOLINT_NEXT_LINE(whitespace/operators)
+  SigmoidBackward<Dtype><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
+     N, top_diff, top_data, bottom_diff);
+  CUDA_POST_KERNEL_CHECK;
 }
 
 INSTANTIATE_CLASS(SigmoidLayer);

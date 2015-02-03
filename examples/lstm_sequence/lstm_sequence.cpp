@@ -1,5 +1,5 @@
-#include <cuda_runtime.h>
 #include <ctime>
+#include "caffe/util/device_alternate.hpp"
 #include "caffe/caffe.hpp"
 #include <math.h>
 #include <iostream>

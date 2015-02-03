@@ -9,8 +9,8 @@
 
 namespace caffe {
 
-template <typename Dtype> 
-void TanHLayer<Dtype>::Forward_cpu(int N, 
+template <typename Dtype>
+void TanHLayer<Dtype>::Forward_cpu(int N,
     const Dtype* bottom, Dtype* top) {
   Dtype exp2x;
   for (int i = 0; i < N; ++i) {
@@ -19,8 +19,8 @@ void TanHLayer<Dtype>::Forward_cpu(int N,
   }
 }
 
-template <typename Dtype> 
-void TanHLayer<Dtype>::Backward_cpu(int N, 
+template <typename Dtype>
+void TanHLayer<Dtype>::Backward_cpu(int N,
     const Dtype* top_data, const Dtype* top_diff, Dtype* bottom_diff) {
   Dtype tanhx;
   for (int i = 0; i < N; ++i) {
@@ -34,7 +34,7 @@ void TanHLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
     vector<Blob<Dtype>*>* top) {
   const Dtype* bottom_data = bottom[0]->cpu_data();
   Dtype* top_data = (*top)[0]->mutable_cpu_data();
-  //Dtype exp2x;
+  // Dtype exp2x;
   const int count = bottom[0]->count();
   Forward_cpu(count, bottom_data, top_data);
   /*
@@ -54,7 +54,7 @@ void TanHLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
     const Dtype* top_diff = top[0]->cpu_diff();
     Dtype* bottom_diff = (*bottom)[0]->mutable_cpu_diff();
     const int count = (*bottom)[0]->count();
-    //Dtype tanhx;
+    // Dtype tanhx;
 
     Backward_cpu(count, top_data, top_diff, bottom_diff);
     /*

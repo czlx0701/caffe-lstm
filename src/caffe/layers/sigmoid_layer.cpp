@@ -12,16 +12,16 @@ inline Dtype sigmoid(Dtype x) {
   return 1. / (1. + exp(-x));
 }
 
-template <typename Dtype> 
-void SigmoidLayer<Dtype>::Forward_cpu(int N, 
+template <typename Dtype>
+void SigmoidLayer<Dtype>::Forward_cpu(int N,
     const Dtype* bottom, Dtype* top) {
   for (int i = 0; i < N; ++i) {
     top[i] = sigmoid(bottom[i]);
   }
 }
 
-template <typename Dtype> 
-void SigmoidLayer<Dtype>::Backward_cpu(int N, 
+template <typename Dtype>
+void SigmoidLayer<Dtype>::Backward_cpu(int N,
     const Dtype* top_data, const Dtype* top_diff, Dtype* bottom_diff) {
   for (int i = 0; i < N; ++i) {
     const Dtype sigmoid_x = top_data[i];

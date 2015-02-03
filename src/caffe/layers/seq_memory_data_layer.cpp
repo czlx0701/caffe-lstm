@@ -1,16 +1,13 @@
-// Copyright 2013 Yangqing Jia
-
-#include <stdint.h>
 #include <leveldb/db.h>
+#include <stdint.h>
 #include <pthread.h>
 
+#include <iostream>
 #include <string>
 #include <vector>
 
-#include "caffe/layer.hpp"
-#include "caffe/util/io.hpp"
 #include "caffe/data_layers.hpp"
-#include <iostream>
+#include "caffe/util/io.hpp"
 
 using namespace std;
 using std::string;

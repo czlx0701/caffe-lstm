@@ -60,10 +60,10 @@ void LstmLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
   this->prev_out_.Reshape(1, H_, 1, 1);
   this->next_cell_.Reshape(1, H_, 1, 1);
   this->next_out_.Reshape(1, H_, 1, 1);
-  caffe_set<Dtype>(H_, Dtype(0.), this->prev_cell_.mutable_cpu_data());
-  caffe_set<Dtype>(H_, Dtype(0.), this->prev_out_.mutable_cpu_data());
-  caffe_set<Dtype>(H_, Dtype(0.), this->next_cell_.mutable_cpu_data());
-  caffe_set<Dtype>(H_, Dtype(0.), this->next_out_.mutable_cpu_data());
+  caffe_set(H_, Dtype(0.), this->prev_cell_.mutable_cpu_data());
+  caffe_set(H_, Dtype(0.), this->prev_out_.mutable_cpu_data());
+  caffe_set(H_, Dtype(0.), this->next_cell_.mutable_cpu_data());
+  caffe_set(H_, Dtype(0.), this->next_out_.mutable_cpu_data());
 
   this->fdc_.Reshape(1, H_, 1, 1);
   this->ig_.Reshape(1, H_, 1, 1);
@@ -98,22 +98,17 @@ void LstmLayer<Dtype>::PreStartSequence() {
     "incompatible with previous cell size";
   CHECK_EQ(H_, prev_out_.count()) << "# of Hidden unit is "
     "incompatible with previous output size";
-  switch (Caffe::mode()) {
-    case Caffe::CPU:
-      caffe_set<Dtype>(H_, Dtype(0.), prev_cell_.mutable_cpu_data());
-      caffe_set<Dtype>(H_, Dtype(0.), prev_out_.mutable_cpu_data());
-      caffe_set<Dtype>(H_, Dtype(0.), next_cell_.mutable_cpu_data());
-      caffe_set<Dtype>(H_, Dtype(0.), next_out_.mutable_cpu_data());
-      break;
-    case Caffe::GPU:
-      caffe_gpu_set<Dtype>(H_, Dtype(0.), prev_cell_.mutable_gpu_data());
-      caffe_gpu_set<Dtype>(H_, Dtype(0.), prev_out_.mutable_gpu_data());
-      caffe_gpu_set<Dtype>(H_, Dtype(0.), next_cell_.mutable_gpu_data());
-      caffe_gpu_set<Dtype>(H_, Dtype(0.), next_out_.mutable_gpu_data());
-      break;
-    default:
-      LOG(FATAL) << "Unknown caffe mode.";
-  }
+#ifdef CPU_ONLY
+      caffe_set(H_, Dtype(0.), prev_cell_.mutable_cpu_data());
+      caffe_set(H_, Dtype(0.), prev_out_.mutable_cpu_data());
+      caffe_set(H_, Dtype(0.), next_cell_.mutable_cpu_data());
+      caffe_set(H_, Dtype(0.), next_out_.mutable_cpu_data());
+#else
+      caffe_gpu_set(H_, Dtype(0.), prev_cell_.mutable_gpu_data());
+      caffe_gpu_set(H_, Dtype(0.), prev_out_.mutable_gpu_data());
+      caffe_gpu_set(H_, Dtype(0.), next_cell_.mutable_gpu_data());
+      caffe_gpu_set(H_, Dtype(0.), next_out_.mutable_gpu_data());
+#endif
 }
 
 template <typename Dtype>

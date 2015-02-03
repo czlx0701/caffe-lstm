@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <math_functions.h>  // CUDA's, not caffe's, for fabs, signbit
 #include <thrust/device_vector.h>
 #include <thrust/functional.h>  // thrust::plus
@@ -311,15 +312,17 @@ __global__ void bound_kernel(const int n, const Dtype* a, const Dtype min_val,
 }
 
 template <>
-void caffe_gpu_bound<float>(const int N, const float* a, const float min_val, 
+void caffe_gpu_bound<float>(const int N, const float* a, const float min_val,
     const float max_val, float* y) {
+  // NOLINT_NEXT_LINE(*)
   bound_kernel<float><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
       N, a, min_val, max_val, y);
 }
 
 template <>
-void caffe_gpu_bound<double>(const int N, const double* a, const double min_val, 
+void caffe_gpu_bound<double>(const int N, const double* a, const double min_val,
     const double max_val, double* y) {
+  // NOLINT_NEXT_LINE(*)
   bound_kernel<double><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
       N, a, min_val, max_val, y);
 }

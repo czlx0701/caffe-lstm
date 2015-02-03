@@ -524,7 +524,6 @@ Dtype Net<Dtype>::ForwardTo(int end) {
 
 template <typename Dtype>
 const vector<Blob<Dtype>*>& Net<Dtype>::ForwardPrefilled(Dtype* loss) {
-
   bool head_of_sequence = true;
   for (int i = 0; i < layers_.size(); ++i) {
     if (!layers_[i]->IsSequenceHead()) {
@@ -837,7 +836,7 @@ bool Net<Dtype>::IsRecurrent() const {
   for (int i = 0; i < layers_.size(); ++i) {
     if (layers_[i]->IsRecurrent()) {
       return true;
-    } 
+    }
   }
   return false;
 }

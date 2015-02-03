@@ -62,20 +62,22 @@ void TanHLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
   }
 }
 
-template <typename Dtype> 
-void TanHLayer<Dtype>::Forward_gpu(int N, 
+template <typename Dtype>
+void TanHLayer<Dtype>::Forward_gpu(int N,
     const Dtype* bottom, Dtype* top) {
+  // NOLINT_NEXT_LINE(whitespace/operators)
   TanHForward<Dtype><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
       N, bottom, top);
   CUDA_POST_KERNEL_CHECK;
 }
 
-template <typename Dtype> 
-void TanHLayer<Dtype>::Backward_gpu(int N, 
+template <typename Dtype>
+void TanHLayer<Dtype>::Backward_gpu(int N,
     const Dtype* top_data, const Dtype* top_diff, Dtype* bottom_diff) {
-   TanHBackward<Dtype><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
+  // NOLINT_NEXT_LINE(whitespace/operators)
+  TanHBackward<Dtype><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
       N, top_diff, top_data, bottom_diff);
-   CUDA_POST_KERNEL_CHECK;
+  CUDA_POST_KERNEL_CHECK;
 }
 
 INSTANTIATE_CLASS(TanHLayer);

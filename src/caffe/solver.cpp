@@ -174,15 +174,16 @@ void Solver<Dtype>::Solve(const char* resume_file) {
   vector<Dtype> losses;
   Dtype smoothed_loss = 0;
 
-  while(!IsFinished()) {
+  while (!IsFinished()) {
     SolveIter(smoothed_loss, losses);
   }
 }
 
+// NOLINT_NEXT_LINE(*)
 template <typename Dtype>
 void Solver<Dtype>::SolveIter(Dtype& smoothed_loss, vector<Dtype>& losses) {
-
-  CHECK_EQ(IsFinished(), false) << "Training is done. iteration is over max_iter";
+  CHECK_EQ(IsFinished(), false) <<
+      "Training is done. iteration is over max_iter";
 
   int average_loss = this->param_.average_loss();
   CHECK_GE(average_loss, 1) << "average_cost should be non-negative.";
@@ -249,8 +250,8 @@ void Solver<Dtype>::SolveIter(Dtype& smoothed_loss, vector<Dtype>& losses) {
     // display the train and test loss/outputs if appropriate (based on the
     // display and test_interval settings, respectively).  Unlike in the rest of
     // training, for the train net we only run a forward pass as we've already
-    // updated the parameters "max_iter" times -- this final pass is only done to
-    // display the loss, which is computed in the forward pass.
+    // updated the parameters "max_iter" times -- this final pass is only done
+    // to display the loss, which is computed in the forward pass.
     if (param_.display() && iter_ % param_.display() == 0) {
       Dtype loss;
       net_->Forward(bottom_vec, &loss);
